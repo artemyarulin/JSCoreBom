@@ -1,4 +1,4 @@
-# JSCoreBOMObjectiveCBinding
+# JSCoreBom
 JavaScriptCore is missing some things from BOM you get used to - setTimeout, XMLHttpRequest, etc. This projects extends JSContext with native implementation of **some** function of BOM using Objective-C
 
 ## How to use it?
@@ -17,26 +17,21 @@ Then just use it:
 
 ## What does it contain?
 
-Name            | Description
----             | ---
-setTimeout      | Implemented using dispatch_after
-XmlHTTPRequest  | Using NSUrlSession 
-console.log     | Would forward everything to NSLog
+Name            | Description                         | Status
+---             | ---                                 | ---
+setTimeout      | Implemented using dispatch_after    | Done
+XmlHTTPRequest  | Using NSUrlSession                  | -
+console.log     | Would forward everything to NSLog   | -
 
 ## How does it work?
 Like Apple said to!
 ```
-@interface JSExtensions: NSObject <JSBridge>
-@end
-@implementation JSExtensions
-- (void)setTimeout:^(JSValue* function, JSValue* timeout) {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([timeout toInt32] * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
-      [function callWithArguments:@[]];
-    });
-}
 
 JSContext* context = [[JSContext alloc] init];
-context[@"ext"] = [[JSExtensions alloc] init];
-
+context[@"setTimeout"] = ^(JSValue* function, JSValue* timeout) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([timeout toInt32] * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
+        [function callWithArguments:@[]];
+    });
+};
 ```
 
