@@ -1,18 +1,20 @@
 # JSCoreBom
-JavaScriptCore is missing some things from BOM you get used to - setTimeout, XMLHttpRequest, etc. This projects extends JSContext with native implementation of **some** function of BOM using Objective-C
+JavaScriptCore framework on iOS/OSX is missing some things from browser object model you get used to - setTimeout, XMLHttpRequest, etc. Also a lot of libraries requires to have such objects, for example [rx.js](https://github.com/Reactive-Extensions/RxJS/blob/v2.3.18/dist/rx.js#L1132) requires to have setTimeout.
+
+This projects extends JSContext with native implementation of **some** functions of BOM using Objective-C
 
 ## How to use it?
+Using cocoapods: `pod 'JSCoreBom', '~> 1.0'` or manually take `JSCoreBom/JSCoreBom.{h,m}` files.
+
 Whenever you would like to extend JSContext with BOM function just use:
 ```
 JSContext* context = [[JSContext alloc] init];
-[JSCoreBom shared] extendContext:context]
+[[JSCoreBom shared] extendContext:context];
 ```
 
 Then just use it:
 ```
-[context evaluateScript:@"setTimeout(function(){
-    console.log('Hello in 5 seconds!')
-},5000]
+[context evaluateScript:@"setTimeout(function(){ console.log('Hi in 5 seconds!')},5000"];
 ```
 
 ## What does it contain?
@@ -24,7 +26,7 @@ XmlHTTPRequest  | Using NSUrlSession                  | -
 console.log     | Would forward everything to NSLog   | -
 
 ## How does it work?
-Like Apple said to!
+Like Apple [on a page 45 said to!](http://devstreaming.apple.com/videos/wwdc/2013/615xax5xpcdns8jyhaiszkz2p/615/615.pdf?dl=1)
 ```
 
 JSContext* context = [[JSContext alloc] init];
