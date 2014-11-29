@@ -9,5 +9,6 @@ end
 
 target "JSCoreBomTests" do
   pod 'AGAsyncTestHelper', '~> 0.2.2'
+  pod 'OHHTTPStubs', '~> 3.1.5'
 end
 
