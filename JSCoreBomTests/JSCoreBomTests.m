@@ -32,7 +32,7 @@
     }];
     
     NSString* js = @"var data, error, req = new XMLHttpRequest();                \
-                     req.onload  = function () { data = this.responseText };     \
+                     req.onload  = function () { data = req.responseText };     \
                      req.onerror = function (er) { error = er };                 \
                      req.open('GET', 'http://example.com', true);                \
                      req.send()";
@@ -56,7 +56,7 @@
     XCTAssertNil(context.exception,@"There should be no exception: %@",context.exception);
     [self sleepWithoutBlocking:1000];
     XCTAssertFalse([[context evaluateScript:@"flag"] toBool],@"XmlHTTPRequest should not succeed if there is no network");
-    NSLog(@"%@",[context evaluateScript:@"error"]);
+    XCTAssertNotNil([context evaluateScript:@"error"],@"There should be an error about connection");
 }
 
 -(void)setUp

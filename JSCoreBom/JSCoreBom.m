@@ -1,12 +1,5 @@
-//
-//  JSCoreBom.m
-//  JSCoreBom
-//
-//  Created by fessguid on 21/11/14.
-//  Copyright (c) 2014 fessguid. All rights reserved.
-//
-
 #import "JSCoreBom.h"
+#import "ModuleXMLHttpRequest.h"
 
 
 @implementation JSCoreBom
@@ -28,5 +21,8 @@
             [function callWithArguments:@[]];
         });
     };
+    
+    context[@"XMLHttpRequest"] = [ModuleXMLHttpRequest class];
 }
+
 @end

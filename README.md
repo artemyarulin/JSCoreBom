@@ -22,7 +22,7 @@ Then just use it:
 Name            | Description                         | Status
 ---             | ---                                 | ---
 setTimeout      | Implemented using dispatch_after    | Done
-XmlHTTPRequest  | Using NSUrlSession                  | -
+XmlHTTPRequest  | Using NSUrlSession                  | Proto done
 console.log     | Would forward everything to NSLog   | -
 
 ## How does it work?
@@ -37,3 +37,7 @@ context[@"setTimeout"] = ^(JSValue* function, JSValue* timeout) {
 };
 ```
 
+## Known issues
+XMLHttpRequest:
+- Always sync call is made using NSURLConnection, not NSUrlSession yet
+- onload,onerror callback doesn't have a right this
