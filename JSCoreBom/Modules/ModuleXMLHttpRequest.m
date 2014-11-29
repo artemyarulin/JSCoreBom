@@ -44,9 +44,9 @@
     self.responseText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
     if (!error && _onLoad)
-        [_onLoad.value callWithArguments:NULL];
+        [[_onLoad.value invokeMethod:@"bind" withArguments:@[self]] callWithArguments:NULL];
     else if (error && _onError)
-        [_onError.value callWithArguments:@[[JSValue valueWithNewErrorFromMessage:error.localizedDescription inContext:[JSContext currentContext]]]];
+        [[_onError.value invokeMethod:@"bind" withArguments:@[self]] callWithArguments:@[[JSValue valueWithNewErrorFromMessage:error.localizedDescription inContext:[JSContext currentContext]]]];
 }
 
 @end

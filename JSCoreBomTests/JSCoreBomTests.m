@@ -32,7 +32,7 @@
     }];
     
     NSString* js = @"var data, error, req = new XMLHttpRequest();                \
-                     req.onload  = function () { data = req.responseText };     \
+                     req.onload  = function () { data = this.responseText };     \
                      req.onerror = function (er) { error = er };                 \
                      req.open('GET', 'http://example.com', true);                \
                      req.send()";
