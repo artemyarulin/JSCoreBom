@@ -2,11 +2,11 @@
 
 @protocol ExportConsole <JSExport>
 
-@property JSValue* log;
-@property JSValue* debug;
-@property JSValue* error;
-@property JSValue* info;
-@property JSValue* warn;
+@property (readonly) JSValue* log;
+@property (readonly) JSValue* debug;
+@property (readonly) JSValue* error;
+@property (readonly) JSValue* info;
+@property (readonly) JSValue* warn;
 
 -(void)__write:(NSString*)logLevel :(NSArray*)params;
 
