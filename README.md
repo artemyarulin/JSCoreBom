@@ -4,7 +4,7 @@ JavaScriptCore framework on iOS/OSX is missing some things from browser object m
 This projects extends JSContext with native implementation of **some** functions of BOM using Objective-C
 
 ## How to use it?
-Using cocoapods: `pod 'JSCoreBom', '~> 1.0'` or manually take `JSCoreBom/JSCoreBom.{h,m}` files.
+Using cocoapods: `pod 'JSCoreBom', '~> 1.1'`.
 
 Whenever you would like to extend JSContext with BOM function just use:
 ```
