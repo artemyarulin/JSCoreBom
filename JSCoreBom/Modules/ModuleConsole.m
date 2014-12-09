@@ -77,6 +77,8 @@
     
     if (_logHandler)
         _logHandler(logLevel,params,formatedLogEntry);
+    else
+        NSLog(@"%@",formatedLogEntry);
 }
 
 
