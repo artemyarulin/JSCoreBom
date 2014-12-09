@@ -5,5 +5,6 @@
 
 +(JSCoreBom*)shared;
 -(void)extend:(JSContext*)context;
+-(void)extend:(JSContext*)context logHandler:(void (^)(NSString*,NSArray*))logHandler;
 
 @end

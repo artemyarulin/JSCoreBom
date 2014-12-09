@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9611A5C01A36D2E6001B3B44 /* ModuleConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 9611A5BF1A36D2E6001B3B44 /* ModuleConsole.m */; };
 		966DC1171A1FA3F900E2984E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 966DC1161A1FA3F900E2984E /* main.m */; };
 		966DC1311A1FA3F900E2984E /* JSCoreBomTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 966DC1301A1FA3F900E2984E /* JSCoreBomTests.m */; };
 		966DC13C1A1FA44400E2984E /* JSCoreBom.m in Sources */ = {isa = PBXBuildFile; fileRef = 966DC13B1A1FA44400E2984E /* JSCoreBom.m */; };
@@ -27,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		39AE5F0AA38781C851BEFEE7 /* Pods-JSCoreBomTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JSCoreBomTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JSCoreBomTests/Pods-JSCoreBomTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9611A5BE1A36D2E6001B3B44 /* ModuleConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleConsole.h; sourceTree = "<group>"; };
+		9611A5BF1A36D2E6001B3B44 /* ModuleConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleConsole.m; sourceTree = "<group>"; };
 		966DC1111A1FA3F900E2984E /* JSCoreBom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSCoreBom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		966DC1151A1FA3F900E2984E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		966DC1161A1FA3F900E2984E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -125,6 +128,8 @@
 			children = (
 				968B8CA91A2A6DB600AC363E /* ModuleXMLHttpRequest.h */,
 				968B8CAA1A2A6DB600AC363E /* ModuleXMLHttpRequest.m */,
+				9611A5BE1A36D2E6001B3B44 /* ModuleConsole.h */,
+				9611A5BF1A36D2E6001B3B44 /* ModuleConsole.m */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 				966DC13C1A1FA44400E2984E /* JSCoreBom.m in Sources */,
 				966DC1171A1FA3F900E2984E /* main.m in Sources */,
 				968B8CAB1A2A6DB600AC363E /* ModuleXMLHttpRequest.m in Sources */,
+				9611A5C01A36D2E6001B3B44 /* ModuleConsole.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

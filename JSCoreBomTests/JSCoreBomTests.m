@@ -59,6 +59,25 @@
     XCTAssertNotNil([context evaluateScript:@"error"],@"There should be an error about connection");
 }
 
+-(void)testConsoleLogShouldWork
+{
+    JSValue* consoleLog = [context evaluateScript:@"console.log"];
+    XCTAssertFalse([consoleLog isUndefined],@"console.log should exists");
+    
+    context = [[JSContext alloc] init];
+    __block BOOL isDone = YES;
+    [[JSCoreBom shared] extend:context logHandler:^(NSString* logLevel, NSArray* params) {
+        XCTAssertEqualObjects(logLevel, @"log",@"Log level should be right");
+        XCTAssertEqual(params.count, (NSUInteger)2, @"There should be right number of parameters");
+        XCTAssertEqualObjects(params[0], @"hello",@"There should be right first param");
+        XCTAssertEqualObjects(params[1], @"world",@"There should be right second param");
+        isDone = YES;
+    }];
+    
+    [context evaluateScript:@"console.log('hello','world')"];
+    if (!isDone) WAIT_WHILE(!isDone, 1);
+}
+
 -(void)setUp
 {
     context = [[JSContext alloc] init];

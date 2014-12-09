@@ -23,7 +23,16 @@ Name            | Description                         | Status
 ---             | ---                                 | ---
 setTimeout      | Implemented using dispatch_after    | Done
 XmlHTTPRequest  | Using NSUrlSession                  | Proto done
-console.log     | Would forward everything to NSLog   | -
+console.log     | Would forward everything to NSLog   | Done
+
+For logger you can specify custom log handler:
+```
+[[JSCoreBom shared] extend:context logHandler:^(NSString* logLevel, NSArray* params) {
+    if ([logLevel isEqualToString: @"log"]) // logLevel is a method name of a console object: log, warn, debug, error
+    	[MyCustomLogger log:params];
+}];
+```
+
 
 ## How does it work?
 Like Apple [on a page 45 said to!](http://devstreaming.apple.com/videos/wwdc/2013/615xax5xpcdns8jyhaiszkz2p/615/615.pdf?dl=1)
