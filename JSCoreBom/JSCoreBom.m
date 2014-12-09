@@ -15,7 +15,7 @@
 }
 
 -(void)extend:(JSContext *)context { return [self extend:context logHandler:nil]; }
--(void)extend:(JSContext*)context logHandler:(void (^)(NSString*,NSArray*))logHandler;
+-(void)extend:(JSContext*)context logHandler:(void (^)(NSString*,NSArray*,NSString*))logHandler;
 {
     context[@"setTimeout"] = ^(JSValue* function, JSValue* timeout) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([timeout toInt32] * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{

@@ -66,7 +66,7 @@
     
     context = [[JSContext alloc] init];
     __block BOOL isDone = YES;
-    [[JSCoreBom shared] extend:context logHandler:^(NSString* logLevel, NSArray* params) {
+    [[JSCoreBom shared] extend:context logHandler:^(NSString* logLevel, NSArray* params, NSString* logEntry) {
         XCTAssertEqualObjects(logLevel, @"log",@"Log level should be right");
         XCTAssertEqual(params.count, (NSUInteger)2, @"There should be right number of parameters");
         XCTAssertEqualObjects(params[0], @"hello",@"There should be right first param");
@@ -77,6 +77,22 @@
     [context evaluateScript:@"console.log('hello','world')"];
     if (!isDone) WAIT_WHILE(!isDone, 1);
 }
+
+-(void)testConsoleErrorShouldSupportFormatting
+{
+    context = [[JSContext alloc] init];
+    __block BOOL isDone = YES;
+    [[JSCoreBom shared] extend:context logHandler:^(NSString* logLevel, NSArray* params, NSString* logEntry) {
+        XCTAssertEqualObjects(logLevel, @"error",@"Log level should be right");
+        XCTAssertEqual(params.count, (NSUInteger)3, @"There should be right number of parameters");
+        XCTAssertEqualObjects(logEntry, @"customer d=22",@"Right log entry should be returned");
+        isDone = YES;
+    }];
+    
+    [context evaluateScript:@"console.error('customer %s=%s','d',22)"];
+    if (!isDone) WAIT_WHILE(!isDone, 1);
+}
+
 
 -(void)setUp
 {

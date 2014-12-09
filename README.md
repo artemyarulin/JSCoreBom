@@ -19,17 +19,17 @@ Then just use it:
 
 ## What does it contain?
 
-Name            | Description                         | Status
----             | ---                                 | ---
-setTimeout      | Implemented using dispatch_after    | Done
-XmlHTTPRequest  | Using NSUrlSession                  | Proto done
-console.log     | Would forward everything to NSLog   | Done
+Name            					| Description                         | Status
+---             					| ---                                 | ---
+setTimeout      					| Implemented using dispatch_after    | Done
+console.{info,log,debug,warn,error} | Would forward everything to NSLog   | Done
+XmlHTTPRequest  					| Using NSUrlSession                  | Proto done
 
 For logger you can specify custom log handler:
 ```
-[[JSCoreBom shared] extend:context logHandler:^(NSString* logLevel, NSArray* params) {
-    if ([logLevel isEqualToString: @"log"]) // logLevel is a method name of a console object: log, warn, debug, error
-    	[MyCustomLogger log:params];
+[[JSCoreBom shared] extend:context logHandler:^(NSString* logLevel, NSArray* params, NSString* formattedLogEntry) {
+    if ([logLevel isEqualToString: @"log"])
+    	[MyCustomLogger log:logEntry];
 }];
 ```
 
