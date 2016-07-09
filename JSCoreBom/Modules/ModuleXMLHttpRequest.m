@@ -4,18 +4,27 @@
 {
     NSString* _method;
     NSString* _url;
+    NSMutableDictionary* _headers;
     BOOL _async;
     JSManagedValue* _onLoad;
     JSManagedValue* _onError;
 }
 
 @synthesize responseText;
+@synthesize readyState;
+@synthesize status;
 
 -(void)open:(NSString*)httpMethod :(NSString*)url :(bool)async;
 {
     _method = httpMethod;
     _url = url;
     _async = async;
+    readyState = 1;
+}
+
+-(void)setRequestHeader:(NSString *)key :(NSString *)value
+{
+    _headers[key] = value;
 }
 
 -(void)setOnload:(JSValue *)onload
@@ -35,14 +44,21 @@
 
 -(void)send
 {
+    readyState = 2;
     NSMutableURLRequest* req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:_url]];
     req.HTTPMethod = _method;
+    
+    for (NSString *items in _headers.allKeys) {
+        [req setValue:_headers[items] forHTTPHeaderField:items];
+    }
 
-    NSURLResponse* response;
+    NSHTTPURLResponse* response;
     NSError* error;
+    readyState = 3;
     NSData* data = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:&error];
     self.responseText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
+    status = [response statusCode];
+    readyState = 4;
     if (!error && _onLoad)
         [[_onLoad.value invokeMethod:@"bind" withArguments:@[self]] callWithArguments:NULL];
     else if (error && _onError)
