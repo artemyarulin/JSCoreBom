@@ -43,6 +43,27 @@
     XCTAssertEqualObjects(expectedText, [[context evaluateScript:@"data"] toString],@"There should be right return string");
 }
 
+-(void)testXmlHTTPRequestOnReadyStateChange
+{
+    NSString* expectedText = @"Hello World";
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return YES;
+    } withStubResponse:^OHHTTPStubsResponse*(NSURLRequest *request) {
+        return [OHHTTPStubsResponse responseWithData:[expectedText dataUsingEncoding:NSUTF8StringEncoding] statusCode:200 headers:nil];
+    }];
+    
+    NSString* js = @"var data, error, req = new XMLHttpRequest();                \
+    req.onreadystatechange  = function () { if (req.readyState == 4) data = this.responseText };     \
+    req.onerror = function (er) { error = er };                 \
+    req.open('GET', 'http://example.com', true);                \
+    req.send()";
+    [context evaluateScript:js];
+    XCTAssertNil(context.exception,@"There should be no exception: %@",context.exception);
+    [self sleepWithoutBlocking:1000];
+    XCTAssertNil([[context evaluateScript:@"error"] toObject],@"There should be no error");
+    XCTAssertEqualObjects(expectedText, [[context evaluateScript:@"data"] toString],@"There should be right return string");
+}
+
 -(void)testXmlHTTPRequestNoNetwork
 {
     [self disableNetwork];
@@ -58,6 +79,7 @@
     XCTAssertFalse([[context evaluateScript:@"flag"] toBool],@"XmlHTTPRequest should not succeed if there is no network");
     XCTAssertNotNil([context evaluateScript:@"error"],@"There should be an error about connection");
 }
+
 
 -(void)testConsoleLogShouldWork
 {
