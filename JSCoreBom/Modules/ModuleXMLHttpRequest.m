@@ -7,6 +7,7 @@
     NSMutableDictionary* _headers;
     BOOL _async;
     JSManagedValue* _onLoad;
+    JSManagedValue* _onReadyStateChange;
     JSManagedValue* _onError;
 }
 
@@ -35,6 +36,15 @@
 
 -(JSValue*)onload { return _onLoad.value; }
 
+-(void)setOnreadystatechange:(JSValue *)onReadyStateChange
+{
+    _onReadyStateChange = [JSManagedValue managedValueWithValue:onReadyStateChange];
+    [[[JSContext currentContext] virtualMachine] addManagedReference:_onReadyStateChange withOwner:self];
+}
+
+-(JSValue*)onreadystatechange { return _onReadyStateChange.value; }
+
+
 -(void)setOnerror:(JSValue *)onerror
 {
     _onError = [JSManagedValue managedValueWithValue:onerror];
@@ -59,9 +69,13 @@
     self.responseText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     status = [response statusCode];
     readyState = 4;
-    if (!error && _onLoad)
-        [[_onLoad.value invokeMethod:@"bind" withArguments:@[self]] callWithArguments:NULL];
-    else if (error && _onError)
+    if (!error) {
+        if (_onLoad) {
+            [[_onLoad.value invokeMethod:@"bind" withArguments:@[self]] callWithArguments:NULL];
+        } else if (_onReadyStateChange) {
+            [[_onReadyStateChange.value invokeMethod:@"bind" withArguments:@[self]] callWithArguments:NULL];
+        }
+    } else if (error && _onError)
         [[_onError.value invokeMethod:@"bind" withArguments:@[self]] callWithArguments:@[[JSValue valueWithNewErrorFromMessage:error.localizedDescription inContext:[JSContext currentContext]]]];
 }
 

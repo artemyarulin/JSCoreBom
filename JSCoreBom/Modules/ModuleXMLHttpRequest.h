@@ -5,6 +5,7 @@
 
 @property NSString* responseText;
 @property JSValue* onload;
+@property JSValue* onreadystatechange;
 @property JSValue* onerror;
 @property NSInteger readyState;
 @property NSInteger status;
